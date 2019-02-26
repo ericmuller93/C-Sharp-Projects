@@ -17,7 +17,7 @@ using System.Collections.Generic;
                 int userNumber = Convert.ToInt16(Console.ReadLine());
                 for (int i = 0; i < myList.Count; i++)
                 {
-                    int solution = myList[i] / userNumber;
+                    int solution = myList[i] / userNumber; //if user entered 0 then this will cause an error, but the divide by zero catch will get this
                     Console.WriteLine(solution);
                 }
             }
