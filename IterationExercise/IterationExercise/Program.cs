@@ -85,6 +85,26 @@ class Program
                 }
             }
         }
+        List<string> thirdList = new List<string>();
+        List<string> comparisonList = new List<string>(); //values will be added here then checked for dupes.
+        thirdList.Add("a");
+        thirdList.Add("e");
+        thirdList.Add("b");
+        thirdList.Add("c");
+        thirdList.Add("a"); //dupe to look for
+        thirdList.Add("d");
+        foreach (string item in thirdList)
+        {
+            if (comparisonList.Contains(item)) //if this item is already in my comparison list tell user and move on
+            {
+                Console.WriteLine(item + " is already on the list!");
+            }
+            if (!comparisonList.Contains(item)) //if its NOT on the list, then add it
+            {
+                Console.WriteLine(item + " has been added to the list");
+                comparisonList.Add(item);
+            }
+        }
         Console.ReadLine();
         }
     }
