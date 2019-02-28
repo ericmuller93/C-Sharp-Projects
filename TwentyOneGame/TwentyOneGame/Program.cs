@@ -11,7 +11,7 @@ namespace TwentyOneGame
         static void Main(string[] args)
         {
             Deck deck = new Deck(); //creating a new deck item named deck
-            deck = Shuffle(deck); //here we are reassigning deck to what deck becomes when shuffle method is applied
+            deck = Shuffle(deck,3); //here we are reassigning deck to what deck becomes when shuffle method is applied. For why an int is here check out line 53.
 
             foreach(Card card in deck.Cards)
             {
@@ -35,8 +35,8 @@ namespace TwentyOneGame
             //Console.ReadLine();
         }
 
-        public static Deck Shuffle(Deck deck)
-        {
+        public static Deck Shuffle(Deck deck) //we can just put (int times = 1) as a parameter creating a default value 
+        {                                     //making the int parameter optionl. Its always 1 unless I put something else. It would look like this public static Deck Shuffle(Deck deck, int times=1)
             List<Card> TempList = new List<Card>();
             Random random = new Random();
 
@@ -49,5 +49,41 @@ namespace TwentyOneGame
             deck.Cards = TempList;
             return deck;
         }
+
+        //below method is Shuffle, but multiple times according to what you input
+        public static Deck Shuffle(Deck deck, int times) //this is an overloaded method. Notice it has the same name Shuffle
+        {                                               //but this one takes 2 parameters as opposed to 1, so C# knows they are
+            for (int i = 0; i < times; i++)             //depending on the amount of parameters given when its called. 
+            {                                           //Intellisense will recognize this too when youre calling Shuffle
+                deck = Shuffle(deck);
+            }
+            return deck;
+        }
+
+        //below is the function with all fancy things included. Including an "Out method". We define an out 
+        // int "timesShuffled" which we have it ++ whenever the deck is shuffled. We also need to add this 
+        // "out timesShuffled" to line 14s parameters nad declare it somehwere as timesShuffled = 0; (line 13 would be good)
+
+        //public static deck shuffle(deck deck, out int timesShuffled, int times = 1) 
+        //{   
+        //    timesShuffled = 0;
+        //    for (int i = 0; i < times; i++)             
+        //    {
+        //          timesShuffled++;
+        //          list<card> templist = new list<card>();
+        //          random random = new random();
+        //
+        //          while (deck.cards.count > 0)
+        //          {
+        //            int randomindex = random.next(0, deck.cards.count);
+        //            templist.add(deck.cards[randomindex]);
+        //            deck.cards.removeat(randomindex);
+        //          }
+        //          deck.cards = templist;
+        //          
+        //    }
+        //    deck = shuffle(deck);
+        //    return deck;
+        //}
     }
 }
