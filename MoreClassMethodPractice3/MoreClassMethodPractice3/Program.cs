@@ -12,14 +12,11 @@ namespace MoreClassMethodPractice3
             int newInt2 = 1;
             Console.WriteLine("OPTIONAL Please enter another integer");
             string int2 = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(int2))
-            {
-                
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(int2))
             {
                 newInt2 = Convert.ToInt16(int2);
             }
+         
             Class1 myClass = new Class1();
             Console.WriteLine("Your inputs in the method equal " + myClass.myMethod(int1, newInt2));
             Console.ReadLine();
