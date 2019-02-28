@@ -17,11 +17,13 @@ namespace MoreClassMethodPractice2
             Console.WriteLine(result + " is the result of your int in my first Method");
             Console.WriteLine("Please enter another Int!");
             decimal Int2 = Convert.ToDecimal(Console.ReadLine());
-            firstClass.myMethod(Int2, out int result2);
+            MyClass secondClass = new MyClass();
+            secondClass.myMethod(Int2, out int result2);
             Console.WriteLine(result2 + " is the result of your int in my second Method");
             Console.WriteLine("Please enter another Int!");
             string Int3 = Console.ReadLine();
-            firstClass.myMethod(Int3, out int result3);
+            MyClass thirdClass = new MyClass();
+            thirdClass.myMethod(Int3, out int result3);
             Console.WriteLine(result3 + " is the result of your int in my third Method");
             Console.ReadLine();
         }
