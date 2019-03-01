@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace TwentyOneGame
 {
-    public class Game
-    {
+    public abstract class Game //this is an abstract class. Meaning you cant instantiate "Game". You only will
+    {                          //create A game like TwentyOne or Poker.
         public List<string> Players { get; set; }
         public string Name { get; set; }
         public string Dealer { get; set; }
 
-        public void ListPlayers()
-        {
+        public abstract void Play(); //this is an abtract method. Any class inheriting this class MUST
+                                     //implement this method. 
+
+        public virtual void ListPlayers() //this method is "virtual". This method gets inherited but will have
+        {                                 // the ability to be overrriden so you can customize it 
             foreach (string player in Players)
             {
                 Console.WriteLine(player);

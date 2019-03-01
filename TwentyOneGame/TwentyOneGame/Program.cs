@@ -16,7 +16,7 @@ namespace TwentyOneGame
             Console.ReadLine();
 
             Deck deck = new Deck(); //creating a new deck item named deck
-            deck.Shuffle(); //here we are reassigning deck to what deck becomes when shuffle method is applied. For why an int is here check out line 53.
+            deck.Shuffle(3); //here we are reassigning deck to what deck becomes when shuffle method is applied. For why an int is here check out line 53.
 
             foreach (Card card in deck.Cards)
             {
@@ -25,23 +25,23 @@ namespace TwentyOneGame
             Console.WriteLine(deck.Cards.Count);
             Console.ReadLine();
         }
-            //  THIS IS THE MANUAL WAY THAT I CREATED A CARD IN A DECK WITHOUT THE DECK HAVING THE 
-            // CONSTRUCTOR. I WANTED TO KEEP THIS HERE FOR REFERENCE. 
+        //  THIS IS THE MANUAL WAY THAT I CREATED A CARD IN A DECK WITHOUT THE DECK HAVING THE 
+        // CONSTRUCTOR. I WANTED TO KEEP THIS HERE FOR REFERENCE. 
 
-            //Card cardOne = new Card(); //creating a new card, itll be defaulted to 2 of spades
-            //cardOne.Face = "Queen";   //but here we are changing that default value
-            //cardOne.Suit = "Spades";
+        //Card cardOne = new Card(); //creating a new card, itll be defaulted to 2 of spades
+        //cardOne.Face = "Queen";   //but here we are changing that default value
+        //cardOne.Suit = "Spades";
 
-            //Deck deck = new Deck(); //creating a new deck item named deck
-            //deck.Cards = new List<Card>(); //and now we are using the property cards of deck. Were creating that list for it
+        //Deck deck = new Deck(); //creating a new deck item named deck
+        //deck.Cards = new List<Card>(); //and now we are using the property cards of deck. Were creating that list for it
 
-            //deck.Cards.Add(cardOne); //now were adding cardOne to that list
+        //deck.Cards.Add(cardOne); //now were adding cardOne to that list
 
-            //Console.ReadLine();
-        
+        //Console.ReadLine();
 
-        // this is our shuffle function I pasted into deck then edited. I could just keep this here and call it 
-        // but we want it as a method of deck.
+
+        // this is our shuffle function I pasted into deck then edited a bit. I could just keep this here  
+        // and call it but we want it as a method of deck.
 
         //public static Deck shuffle(Deck deck, out int timesshuffled, int times = 1)
         //{   
@@ -51,7 +51,7 @@ namespace TwentyOneGame
         //          timesshuffled++;
         //          List<Card> templist = new List<Card>();
         //          Random random = new Random();
-        
+
         //         while (deck.Cards.Count > 0)
         //          {
         //            int randomindex = random.Next(0, deck.Cards.Count);
@@ -59,7 +59,7 @@ namespace TwentyOneGame
         //           deck.Cards.RemoveAt(randomindex);
         //         }
         //         deck.Cards = templist;
-                 
+
         //    }
         //    return deck;
         //}
