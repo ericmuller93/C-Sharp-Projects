@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0D6BA099-27CE-4B04-A42B-84FF3BA4D814}</ProjectGuid>
+    <ProjectGuid>{F9EA01F7-38CA-444B-AC86-8EDC48C39350}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TwentyOneGame</RootNamespace>
-    <AssemblyName>TwentyOneGame</AssemblyName>
+    <RootNamespace>InheritanceExercise</RootNamespace>
+    <AssemblyName>InheritanceExercise</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,12 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="Deck.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TwentyOneGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
