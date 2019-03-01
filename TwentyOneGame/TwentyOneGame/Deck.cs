@@ -28,6 +28,26 @@ namespace TwentyOneGame
                 }
             }
         }
-        public List<Card> Cards { get; set; }
+        public List<Card> Cards { get; set; } //this is the property
+
+        //now we want this below method (shuffle) to act on the object its attached to
+        // we had to slightly modify the method because its a part of this class now, we dont
+        // have to pass Cards.Deck all around 
+        public void Shuffle(int times = 1)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                List<Card> templist = new List<Card>();
+                Random random = new Random();
+
+                while (Cards.Count > 0)
+                {
+                    int randomindex = random.Next(0, Cards.Count);
+                    templist.Add(Cards[randomindex]);
+                    Cards.RemoveAt(randomindex);
+                }
+                Cards = templist;
+            }
+        }
     }
 }
