@@ -10,10 +10,11 @@ namespace TwentyOneGame
     {
         static void Main(string[] args)
         {
-            TwentyOneGame game = new TwentyOneGame();
-            game.Players = new List<string>() { "Jesse", "Bill", "Joe" };
-            game.ListPlayers();
-            Console.ReadLine();
+            Game game = new TwentyOneGame();
+            game.Players = new List<Player>();
+            Player player = new Player();
+            player.Name = "Jesse";
+            game = game + player;
 
             Deck deck = new Deck(); //creating a new deck item named deck
             deck.Shuffle(3); //here we are reassigning deck to what deck becomes when shuffle method is applied. For why an int is here check out line 53.
