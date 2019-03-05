@@ -13,13 +13,13 @@ namespace TwentyOneGame
         public string Name { get; set; }
         public bool IsActivelyPlaying { get; set; }
 
-        public static Game operator+ (Game game, Player player)
-        {
+        public static Game operator+ (Game game, Player player) //overloaded operator example
+        {                                                       // an example of its use is commented out in Prgram.cs
             game.Players.Add(player);
             return game;
         }
 
-        public static Game operator- (Game game, Player player)
+        public static Game operator- (Game game, Player player) //overloaded operator example
         {
             game.Players.Remove(player);
             return game;
