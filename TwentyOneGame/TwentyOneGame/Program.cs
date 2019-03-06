@@ -10,12 +10,6 @@ namespace TwentyOneGame
     {
         static void Main(string[] args)
         {
-            Game game = new TwentyOneGame();
-            game.Players = new List<Player>();
-            Player player = new Player();
-            player.Name = "Jesse";
-            game = game + player;
-
             Deck deck = new Deck(); //creating a new deck item named deck
             deck.Shuffle(3); //here we are reassigning deck to what deck becomes when shuffle method is applied. For why an int is here check out line 53.
 
@@ -116,5 +110,12 @@ namespace TwentyOneGame
         //    deck = shuffle(deck);
         //    return deck;
         //}
+
+        //use of an overloaded operator
+        //game game = new twentyonegame();
+        //game.players = new list<player>();
+        //    player player = new player();
+        //player.name = "jesse";
+        //    game = game + player;
     }
 }

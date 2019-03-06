@@ -11,19 +11,14 @@ namespace TwentyOneGame
         public Deck() //this is the deck constructor. Constructors always go at the top. When a deck is created this all will be defaulted
         {
             Cards = new List<Card>(); //creates a list of cards that starts empty
-            List<string> Suits = new List<string>() { "Clubs", "Hearts", "Diamonds", "Spades" }; //gives us a list of our 4 possible suits
-            List<string> Faces = new List<string>() //gives us a list of the 13 possible faces
+
+            for (int i = 0; i < 13; i++) //this for and nested for will create our deck of cards with assigned values
             {
-                "Two", "Three", "Four", "Five", "Six", "Seven",
-                "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"
-            };
-            foreach (string face in Faces) //nested for loop. We will so this so every face gets matched
-            {                             // up with every suit and added to our cards in the deck
-                foreach (string suit in Suits)
+                for (int n = 0; n < 4; n++)
                 {
                     Card card = new Card();
-                    card.Suit = suit;
-                    card.Face = face;
+                    card.Face = (Face)i; // this is using the enum of face and assigning it to the number of the iteration
+                    card.Suit = (Suit)n; // we are currently in, which is the face/suit were working on.
                     Cards.Add(card);
                 }
             }
@@ -51,3 +46,22 @@ namespace TwentyOneGame
         }
     }
 }
+            // this was used originally before we introduced the enums. This is a more manual way to assign all
+            // these details to our cards/deck. This would be located in Deck()
+            //
+            //List<string> Suits = new List<string>() { "Clubs", "Hearts", "Diamonds", "Spades" }; //gives us a list of our 4 possible suits
+            //List<string> Faces = new List<string>() //gives us a list of the 13 possible faces
+            //{
+            //    "Two", "Three", "Four", "Five", "Six", "Seven",
+            //    "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"
+            //};
+            //foreach (string face in Faces) //nested for loop. We will so this so every face gets matched
+            //{                             // up with every suit and added to our cards in the deck
+            //    foreach (string suit in Suits)
+            //    {
+            //        Card card = new Card();
+            //        card.Suit = suit;
+            //        card.Face = face;
+            //        Cards.Add(card);
+            //    }
+            //}
