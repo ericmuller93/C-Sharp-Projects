@@ -14,7 +14,16 @@ namespace EnumExercise
             {
                 Console.WriteLine("Please enter a day of the week! (lowercase)");
                 string userDay = Console.ReadLine();
-                Console.WriteLine(Enum.Parse(typeof(DaysOfTheWeek), userDay));
+                bool isNum = Int32.TryParse(userDay, out int number);
+                if (isNum == false)
+                {
+                    Console.WriteLine(Enum.Parse(typeof(DaysOfTheWeek), userDay));
+                }
+                if (isNum)
+                {
+                    Console.WriteLine("Please don't enter numbers!");
+                }
+                
             }
             catch
             {

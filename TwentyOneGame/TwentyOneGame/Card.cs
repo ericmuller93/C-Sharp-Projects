@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TwentyOneGame
 {
-    public class Card
+    public struct Card //a struct is very similar to a class. it cant be inherited
     {
-        //public Card() //here we are setting default values when an instance of card is created.
+        //public Card() //here we are setting default (constructor) values when an instance of card is created.
         //{             // so card will have these until we change them
         //    Suit = "Spades";
         //    Face = "Two";
