@@ -10,8 +10,8 @@ namespace StructExercise
     {
         static void Main()
         {
-            Number number = new Number();
-            number.Amount = 1.22m;
+            Number number = new Number(); 
+            number.Amount = 1.22m; 
             Console.WriteLine(number.Amount);
             Console.ReadLine();
         }
