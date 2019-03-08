@@ -10,16 +10,58 @@ namespace TwentyOneGame
     {
         static void Main(string[] args)
         {
-            Deck deck = new Deck(); //creating a new deck item named deck
-            deck.Shuffle(3); //here we are reassigning deck to what deck becomes when shuffle method is applied. For why an int is here check out line 53.
-
-            foreach (Card card in deck.Cards)
+            Console.WriteLine("Welcome to the Grand Hotel and Casino. Lets start by telling me your name.");
+            string playerName = Console.ReadLine();
+            Console.WriteLine("How much money did you bring today");
+            int bank = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Hello, {0}. Would you like to play a game of 21?", playerName);
+            string answer = Console.ReadLine().ToLower();
+            if (answer == "yes" || answer == "yea" || answer == "yeah" || answer == "yep")
             {
-                Console.WriteLine(card.Face + " of " + card.Suit);
+                Player player = new Player(playerName, bank);
+                Game game = new TwentyOneGame();
+                game += player;
+                player.IsActivelyPlaying = true;
+                while (player.IsActivelyPlaying && player.Balance > 0)
+                {
+                    game.Play();
+                }
+                game -= player;
+                Console.WriteLine("Thank you for playing!");
             }
-            Console.WriteLine(deck.Cards.Count);
+            Console.WriteLine("Feel free to look around the casino. Bye for now!");
             Console.ReadLine();
         }
+    }
+}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //everything below here is practice info when creating the program. Not be be used for prod
+    
+    //class Program
+    //{
+        //static void Main(string[] args)
+        //{
+            //Deck deck = new Deck(); //creating a new deck item named deck
+        //    deck.Shuffle(3); //here we are reassigning deck to what deck becomes when shuffle method is applied. For why an int is here check out line 53.
+
+        //    foreach (Card card in deck.Cards)
+        //    {
+        //        Console.WriteLine(card.Face + " of " + card.Suit);
+        //    }
+        //    Console.WriteLine(deck.Cards.Count);
+        //    Console.ReadLine();
+        //}
         //  THIS IS THE MANUAL WAY THAT I CREATED A CARD IN A DECK WITHOUT THE DECK HAVING THE 
         // CONSTRUCTOR. I WANTED TO KEEP THIS HERE FOR REFERENCE. 
 
@@ -117,5 +159,4 @@ namespace TwentyOneGame
         //    player player = new player();
         //player.name = "jesse";
         //    game = game + player;
-    }
-}
+
