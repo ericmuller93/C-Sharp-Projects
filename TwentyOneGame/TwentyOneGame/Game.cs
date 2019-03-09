@@ -8,9 +8,11 @@ namespace TwentyOneGame
 {
     public abstract class Game //this is an abstract class. Meaning you cant instantiate "Game". You only will
     {                          //create A game like TwentyOne or Poker.
-        public List<Player> Players { get; set; }
+        private List<Player> _players = new List<Player>(); //creating an empty list of players. need this because you can just add something to a null list
+        private Dictionary<Player, int> _bets = new Dictionary<Player, int>(); //same as above but for list
+        public List<Player> Players { get { return _players; } set { _players = value; } }
         public string Name { get; set; }
-        public Dictionary<Player, int> Bets { get; set; }
+        public Dictionary<Player, int> Bets { get { return _bets; } set { _bets = value; } }
 
         public abstract void Play(); //this is an abtract method. Any class inheriting this class MUST
                                      //implement this method. 

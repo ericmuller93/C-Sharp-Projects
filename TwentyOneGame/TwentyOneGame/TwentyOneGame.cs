@@ -21,6 +21,7 @@ namespace TwentyOneGame
             Dealer.Hand = new List<Card>();
             Dealer.Stay = false;
             Dealer.Deck = new Deck(); //here we refreshed everyones hands
+            Dealer.Deck.Shuffle();
             Console.WriteLine("Please Your Bet!");
 
             foreach (Player player in Players) // for each player, make them bet
@@ -63,10 +64,106 @@ namespace TwentyOneGame
                         {
                             Dealer.Balance += entry.Value;
                         }
+                        return;
                     }
                 }
             }
+            foreach (Player player in Players)
+            {
+                while (!player.Stay)
+                {
+                    Console.WriteLine("Your cards are...");
+                    foreach (Card card in player.Hand)
+                    {
+                        Console.WriteLine("{0} ", card.ToString());
+                    }
+                    Console.WriteLine("\n\nHit or Stay?");
+                    string answer = Console.ReadLine().ToLower();
+                    if (answer == "stay")
+                    {
+                        player.Stay = true;
+                        break;
+                    }
+                    else if (answer == "hit")
+                    {
+                        Dealer.Deal(player.Hand);
+                    }
+                    bool busted = TwentyOneRules.isBusted(player.Hand);
+                    if (busted)
+                    {
+                        Dealer.Balance += Bets[player]; //if you bust dealer gets your bet
+                        Console.WriteLine("{0} Busted! You lose you bet of {1}. Your balance is now {2}.", player.Name, Bets[player], player.Balance);
+                        Console.WriteLine("Do you want to play again?");
+                        answer = Console.ReadLine().ToLower();
+                        if (answer == "yes" || answer == "yea" || answer == "yeah" || answer == "yep")
+                        {
+                            player.IsActivelyPlaying = true;
+                            return;
+                        }
+                        else
+                        {
+                            player.IsActivelyPlaying = false;
+                            return;
+                        }
+                    }
+                }
+            }
+            Dealer.isBusted = TwentyOneRules.isBusted(Dealer.Hand);
+            Dealer.Stay = TwentyOneRules.ShouldDealerStay(Dealer.Hand);
+            while (!Dealer.Stay && !Dealer.isBusted) //dealer hits
+            {
+                Console.WriteLine("Deal is hitting...");
+                Dealer.Deal(Dealer.Hand); //add a card to dealers hand
+                Dealer.isBusted = TwentyOneRules.isBusted(Dealer.Hand); //check if dealer busted
+                Dealer.Stay = TwentyOneRules.ShouldDealerStay(Dealer.Hand); //check is dealer stayed (one of these has to be true)
+            }
+            if (Dealer.Stay)
+            {
+                Console.WriteLine("Dealer is Staying....");
+            }
+            if (Dealer.isBusted) // dealer lost so all players win
+            {
+                Console.WriteLine("Dealer Busted!");
+                foreach (KeyValuePair<Player, int> entry in Bets) //for each winner
+                {
+                    Console.WriteLine("{0} won {1}!", entry.Key.Name, entry.Value); //write a winners name ot the console
+                    Players.Where(x => x.Name == entry.Key.Name).First().Balance += (entry.Value * 2); //If they won find them in our dictionary and add their winnings to balance
+                    Dealer.Balance -= entry.Value; //subtract bets from dealers balance
+                }
+            }
+            foreach (Player player in Players) //comparing players hands to dealers to see who wins
+            {
+                bool? playerWon = TwentyOneRules.CompareHands(player.Hand, Dealer.Hand);//the ? makes it so that the bool value can be null, that way it can have 3 values
+                if (playerWon == null) //if theres a tie
+                {
+                    Console.WriteLine("Push! No one wins.");
+                    player.Balance += Bets[player];
+                }
+                else if (playerWon == true) //if player wins
+                {
+                    Console.WriteLine("{0} win {1}!", player.Name, Bets[player]);
+                    player.Balance += (Bets[player] * 2);
+                    Dealer.Balance -= Bets[player];
+                }
+                else // if dealer wins
+                {
+                    Console.WriteLine("Dealer wins {0}!", Bets[player]);
+                    Dealer.Balance += Bets[player];
+                }
+                Console.WriteLine("Play again?");
+                string answer2 = Console.ReadLine().ToLower();
+                if (answer2 == "yes" || answer2 == "yea" || answer2 == "yeah" || answer2 == "yep")
+                {
+                    player.IsActivelyPlaying = true;
+                }
+                else
+                {
+                    player.IsActivelyPlaying = false;
+                }
+
+            }
         }
+
 
         public override void ListPlayers() //this is a virtual method. We customized what the parent class 
         {                                  //gave us so we can do what we want, like add the phrase 21 Players

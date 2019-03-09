@@ -17,6 +17,11 @@ namespace TwentyOneGame
                                          //called suit. You either get or set this property. by making 
                                         //it public, its accesable ot other parts of the program
         public Face Face { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0} of {1}", Face, Suit);
+        }
     }
     public enum Suit
     {
