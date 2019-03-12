@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TwentyOneGame
+namespace Casino
 {
     public abstract class Game //this is an abstract class. Meaning you cant instantiate "Game". You only will
     {                          //create A game like TwentyOne or Poker.

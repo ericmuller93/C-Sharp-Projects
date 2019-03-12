@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TwentyOneGame
+namespace Casino.TwentyOne
 {
     public class TwentyOneGame : Game, IWalkAway //to inherit from a class all you need is that colon and the class name
     {
