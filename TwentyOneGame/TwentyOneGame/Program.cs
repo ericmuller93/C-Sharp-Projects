@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TwentyOneGame
 {
@@ -10,6 +11,8 @@ namespace TwentyOneGame
     {
         static void Main(string[] args)
         {
+            string text = "Here is some text.";
+            File.WriteAllText(@"C:\Users\ericm\OneDrive\Documents\text.txt", text);
             Console.WriteLine("Welcome to the Grand Hotel and Casino. Lets start by telling me your name.");
             string playerName = Console.ReadLine();
             Console.WriteLine("How much money did you bring today");

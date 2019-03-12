@@ -42,6 +42,7 @@ namespace TwentyOneGame
             {
                 value += (i * 10);
                 result[i] = value;
+                return result;
             }
             return result;
         }

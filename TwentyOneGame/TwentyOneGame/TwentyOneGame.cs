@@ -22,7 +22,7 @@ namespace TwentyOneGame
             Dealer.Stay = false;
             Dealer.Deck = new Deck(); //here we refreshed everyones hands
             Dealer.Deck.Shuffle();
-            Console.WriteLine("Please Your Bet!");
+            Console.WriteLine("Please Place Your Bet!");
 
             foreach (Player player in Players) // for each player, make them bet
             {
@@ -141,7 +141,7 @@ namespace TwentyOneGame
                 }
                 else if (playerWon == true) //if player wins
                 {
-                    Console.WriteLine("{0} win {1}!", player.Name, Bets[player]);
+                    Console.WriteLine("{0} wins {1}!", player.Name, Bets[player]);
                     player.Balance += (Bets[player] * 2);
                     Dealer.Balance -= Bets[player];
                 }
