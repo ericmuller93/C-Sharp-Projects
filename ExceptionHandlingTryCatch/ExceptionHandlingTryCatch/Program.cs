@@ -35,6 +35,10 @@ namespace ExceptionHandlingTryCatch
                 {
                     Console.WriteLine("Please only enter digits!");
                 }
+                catch (Exception)
+                {
+                    Console.WriteLine("There seems to have been an error, please start over.");
+                }
             }
         }
     }
