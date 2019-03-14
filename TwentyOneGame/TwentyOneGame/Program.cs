@@ -15,19 +15,49 @@ namespace TwentyOne
         {
             Console.WriteLine("Welcome to the Grand Hotel and Casino. Lets start by telling me your name.");
             string playerName = Console.ReadLine();
-            Console.WriteLine("How much money did you bring today");
-            int bank = Convert.ToInt32(Console.ReadLine());
+            bool validAnswer = false;
+            int bank = 0;
+            while (!validAnswer) //exception handling for how much money they brought. we want only an int
+            {
+                Console.WriteLine("And how much money did you bring today?");
+                //tryparse will convert the readline string to an integer and return it as var bank. If it succeeds valid answer is true if nto its false.
+                validAnswer = int.TryParse(Console.ReadLine(), out bank);
+                if (!validAnswer) Console.WriteLine("Please enter digits only, no decimals.");
+            }
+
+            //Console.WriteLine("How much money did you bring today");
+            //int bank = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Hello, {0}. Would you like to play a game of 21?", playerName);
             string answer = Console.ReadLine().ToLower();
             if (answer == "yes" || answer == "yea" || answer == "yeah" || answer == "yep")
             {
                 Player player = new Player(playerName, bank);
+                player.Id = Guid.NewGuid(); //assigning a globally unique ID for our player
+                using (StreamWriter file = new StreamWriter(@"C:\Users\ericm\OneDrive\Documents\users.txt", true))
+                { //this will log our players ID to a file.
+                    file.WriteLine(player.Id);
+                }
                 Game game = new TwentyOneGame();
                 game += player;
                 player.IsActivelyPlaying = true;
                 while (player.IsActivelyPlaying && player.Balance > 0)
                 {
-                    game.Play();
+                    try
+                    {
+                        game.Play();
+                    }
+                    catch (FraudException)//exception for that especific error, this is used in bet.
+                    {
+                        Console.WriteLine("Security!! Kick this person out!"); //this runs if you try to put a neg number which is cheating
+                        Console.ReadLine();
+                        return;
+                    }
+                    catch (Exception) //an exception for any general error
+                    {
+                        Console.WriteLine("An error occured please contact your system admin.");
+                        Console.ReadLine();
+                        return; //we end the program with this
+                    }
                 }
                 game -= player;
                 Console.WriteLine("Thank you for playing!");

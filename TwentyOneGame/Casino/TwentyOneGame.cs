@@ -22,11 +22,22 @@ namespace Casino.TwentyOne
             Dealer.Stay = false;
             Dealer.Deck = new Deck(); //here we refreshed everyones hands
             Dealer.Deck.Shuffle();
-            Console.WriteLine("Please Place Your Bet!");
 
             foreach (Player player in Players) // for each player, make them bet
             {
-                int bet = Convert.ToInt32(Console.ReadLine());
+                bool validAnswer = false;
+                int bet = 0;
+                while (!validAnswer)
+                {
+                    Console.WriteLine("Place your bet!");
+                    //tryparse will convert the readline string to an integer and return it as var bank. If it succeeds valid answer is true if nto its false.
+                    validAnswer = int.TryParse(Console.ReadLine(), out bet);
+                    if (!validAnswer) Console.WriteLine("Please enter digits only, no decimals.");
+                }
+                if(bet < 0)
+                {
+                    throw new FraudException(); //if they enter a neg number it is cheating. call this exception
+                }
                 bool successfullyBet = player.Bet(bet); //passing in our bet value to the Bet function
                 if (!successfullyBet)
                 {
