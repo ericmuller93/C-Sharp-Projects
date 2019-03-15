@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.IO;
 using Casino; //we added these casino items as a reference so program can access them.
 using Casino.TwentyOne;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace TwentyOne
 {
@@ -15,6 +17,20 @@ namespace TwentyOne
         {
             Console.WriteLine("Welcome to the Grand Hotel and Casino. Lets start by telling me your name.");
             string playerName = Console.ReadLine();
+            if (playerName.ToLower() == "admin")
+            {
+                List<ExceptionEntity> Exceptions = ReadExceptions();
+                foreach (var exception in Exceptions)
+                {
+                    Console.Write(exception.id + " | ");
+                    Console.Write(exception.ExceptionType + " | ");
+                    Console.Write(exception.ExceptionMessage + " | ");
+                    Console.Write(exception.TimeStamp + " | ");
+                    Console.WriteLine();
+                }
+                Console.Read();
+                return;
+            }
             bool validAnswer = false;
             int bank = 0;
             while (!validAnswer) //exception handling for how much money they brought. we want only an int
@@ -46,15 +62,17 @@ namespace TwentyOne
                     {
                         game.Play();
                     }
-                    catch (FraudException)//exception for that especific error, this is used in bet.
+                    catch (FraudException ex)//exception for that especific error, this is used in bet.
                     {
                         Console.WriteLine("Security!! Kick this person out!"); //this runs if you try to put a neg number which is cheating
+                        UpdateDBWithException(ex);
                         Console.ReadLine();
                         return;
                     }
-                    catch (Exception) //an exception for any general error
+                    catch (Exception ex) //an exception for any general error
                     {
                         Console.WriteLine("An error occured please contact your system admin.");
+                        UpdateDBWithException(ex);
                         Console.ReadLine();
                         return; //we end the program with this
                     }
@@ -65,14 +83,66 @@ namespace TwentyOne
             Console.WriteLine("Feel free to look around the casino. Bye for now!");
             Console.ReadLine();
         }
+
+        private static void UpdateDBWithException(Exception ex) //creating our database logger method. we have to pass in exceptions to log
+        { //this connectionstring was copied from our SQL server object explorer
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TwentyOneGame;
+                                        Integrated Security=True;Connect Timeout=30;Encrypt=False;
+                                        TrustServerCertificate=False;ApplicationIntent=ReadWrite;
+                                        MultiSubnetFailover=False";
+
+            //below is the actual query we want to use, the @s will fill in
+            string queryString = @"INSERT INTO Exceptions (ExceptionType, ExceptionMessage, TimeStamp) VALUES
+                                  (@ExceptionType, @ExceptionMessage, @TimeStamp)";
+            //using this to shut off our connection. dont want to leave connections open!
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add("@ExceptionType", SqlDbType.VarChar); //adding datatypes of these items
+                command.Parameters.Add("@ExceptionMessage", SqlDbType.VarChar);
+                command.Parameters.Add("@TimeStamp", SqlDbType.VarChar);
+
+                command.Parameters["@ExceptionType"].Value = ex.GetType().ToString(); //these are the actual values we wil be inserting
+                command.Parameters["@ExceptionMessage"].Value = ex.Message;
+                command.Parameters["@TimeStamp"].Value = DateTime.Now; //not passing in value from the message. just the time it happened 
+
+                connection.Open();
+                command.ExecuteNonQuery(); //not a query because we are just inserting
+                connection.Close();
+
+            }
+        }
+        private static List<ExceptionEntity> ReadExceptions()
+        {
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TwentyOneGame;
+                                        Integrated Security=True;Connect Timeout=30;Encrypt=False;
+                                        TrustServerCertificate=False;ApplicationIntent=ReadWrite;
+                                        MultiSubnetFailover=False";
+            string queryString = @"SELECT id, ExceptionType, ExceptionMessage, TimeStamp FROM Exceptions";
+            List<ExceptionEntity> Exceptions = new List<ExceptionEntity>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ExceptionEntity exception = new ExceptionEntity();
+                    exception.id = Convert.ToInt32(reader["Id"]);
+                    exception.ExceptionType = reader["ExceptionType"].ToString();
+                    exception.ExceptionMessage = reader["ExceptionMessage"].ToString();
+                    Exceptions.Add(exception);
+                }
+                connection.Close();
+            }
+            return Exceptions;
+        }
     }
 }
 
-    
-    
-    
-    
-    
     
     
     
