@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<head>
+    <meta charset="utf=8">
+    <title>Knockout!</title>
+    <script type="text/javascript" src='../Scripts/knockout-3.5.0.js'></script>
+</head>
+<body>
+
+    <p>First Name:<input data-bind="value: firstName" /></p>
+    <p>Last name: <input data-bind="value: lastName" /></p>
+
+    <p>So your first name is <strong data-bind="text: firstName"></strong>?</p>
+    <p>And your last name is <strong data-bind="text: lastName"></strong>?</p>
+
+
+    <script>
+        function AppViewModel() {
+            this.firstName = ko.observable();
+            this.lastName = ko.observable();
+            this.fullName = ko.computed(function () {
+                return this.firstName() + " " + this.lastName();
+            }, this);
+        }
+
+        // Activates knockout.js
+        ko.applyBindings(new AppViewModel());
+
+    </script>
+</body>
